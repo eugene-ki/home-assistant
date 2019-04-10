@@ -234,7 +234,7 @@ class YeelightDevice:
         if self.bulb is None:
             return False
 
-        return self._active_mode == '1'
+        return self._active_mode == '1' or self._nightlight_brightness == '1'
 
     @property
     def is_nightlight_supported(self) -> bool:
@@ -242,11 +242,18 @@ class YeelightDevice:
         if self.model:
             return self.bulb.get_model_specs().get('night_light', False)
 
-        return self._active_mode is not None
+        return self._nightlight_brightness is not None
 
     @property
     def _active_mode(self):
-        return self.bulb.last_properties.get('active_mode')
+        return self.get_property('active_mode')
+
+    @property
+    def _nightlight_brightness(self):
+        return self.get_property('nl_br')
+
+    def get_property(self, prop, default=None):
+        return self.bulb.last_properties.get(prop, default)
 
     @property
     def type(self):

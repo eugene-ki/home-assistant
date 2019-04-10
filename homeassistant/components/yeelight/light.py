@@ -328,14 +328,8 @@ class YeelightGenericLight(Light):
     def _bulb(self) -> 'yeelight.Bulb':  # noqa: F821
         return self.device.bulb
 
-    @property
-    def _properties(self) -> dict:
-        if self._bulb is None:
-            return {}
-        return self._bulb.last_properties
-
     def _get_property(self, prop, default=None):
-        return self._properties.get(prop, default)
+        return self.device.get_property(prop, default)
 
     @property
     def _brightness_property(self):
