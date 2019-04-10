@@ -142,7 +142,7 @@ def setup_platform(hass, config, add_entities, discovery_info=None):
     _LOGGER.debug("Adding %s", device.name)
 
     custom_effects = _parse_custom_effects(discovery_info[CONF_CUSTOM_EFFECTS])
-    nl_switch_light = discovery_info[CONF_NIGHTLIGHT_SWITCH_TYPE] == \
+    nl_switch_light = discovery_info.get(CONF_NIGHTLIGHT_SWITCH_TYPE, None) ==\
         NIGHTLIGHT_SWITCH_TYPE_LIGHT
 
     lights = []
