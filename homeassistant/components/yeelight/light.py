@@ -456,6 +456,11 @@ class YeelightGenericLight(LightEntity):
         return self.device.unique_id
 
     @property
+    def device_info(self):
+        """Return device registry information for this entity."""
+        return self._device.device_info
+
+    @property
     def available(self) -> bool:
         """Return if bulb is available."""
         return self.device.available

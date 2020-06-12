@@ -289,9 +289,25 @@ class YeelightDevice:
         return self._device_type
 
     @property
+    def _capabilities(self):
+        return self.bulb.capabilities
+
+    @property
     def unique_id(self) -> Optional[str]:
         """Return a unique ID."""
-        return self.bulb.capabilities.get("id")
+        return self._capabilities.get("id")
+
+    @property
+    def device_info(self):
+        """Return device registry information for this entity."""
+        capabilities = self._capabilities
+
+        return {
+            "identifiers": {(DOMAIN, self.unique_id)},
+            "manufacturer": "Yeelight",
+            "model": capabilities.get("model"),
+            "sw_version": capabilities.get("fw_ver"),
+        }
 
     def turn_on(self, duration=DEFAULT_TRANSITION, light_type=None, power_mode=None):
         """Turn on device."""

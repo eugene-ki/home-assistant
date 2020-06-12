@@ -68,3 +68,8 @@ class YeelightNightlightModeSensor(BinarySensorEntity):
     def is_on(self):
         """Return true if nightlight mode is on."""
         return self._device.is_nightlight_enabled
+
+    @property
+    def device_info(self):
+        """Return device registry information for this entity."""
+        return self._device.device_info
